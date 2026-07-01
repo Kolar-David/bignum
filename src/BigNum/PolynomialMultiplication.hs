@@ -1,20 +1,25 @@
--- Types
+module BigNum.PolynomialMultiplication
+    ( NumberType
+    , moduloPower
+    , nextPowerOfTwo
+    , extendWithZeroes
+    , splitEvenOdd
+    , getCorrectW
+    , fft
+    , multiply
+    ) where
 
-type NumberType = Integer
+import BigNum.Constants
+    ( NumberType
+    , primitiveRootW
+    , maximumNumberOfCoefficients
+    , usedPrime
+    )
 
 -- Constants
 
-primitiveRootW :: NumberType
-primitiveRootW = 125
-
-maximumNumberOfCoefficients :: NumberType
-maximumNumberOfCoefficients = 2^30
-
 primitiveRootWInverse :: NumberType
 primitiveRootWInverse = moduloPower primitiveRootW (maximumNumberOfCoefficients - 1) usedPrime
-
-usedPrime :: NumberType
-usedPrime = 3*(2^30) + 1
 
 -- Auxillary functions
 
