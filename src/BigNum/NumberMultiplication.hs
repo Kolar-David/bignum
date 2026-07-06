@@ -1,16 +1,18 @@
 module BigNum.NumberMultiplication
     ( unsignedIntegerMultiplication
+    , multiply
     ) where
 
 import BigNum.Constants
-    ( NumberType
-    , multiplicationBlockSize
+    ( multiplicationBlockSize
     , multiplicationMaximumNumberOfDigits
     )
 
-import BigNum.PolynomialMultiplication
-    ( multiply
-    )
+import BigNum.Types (NumberType, BigNumber(..))
+
+import qualified BigNum.PolynomialMultiplication as PM
+
+import BigNum.Parser (removeLeadingZeroes, parseBigNumber, bigNumberToString, normalizeBigNumber)
 
 -- Auxillary functions
 
@@ -28,12 +30,6 @@ splitNumberToBlocks number blockSize = map (read . reverse) (splitHelper size (r
 padLeft :: Int -> Char -> String -> String
 padLeft desiredLength paddingChar text =
     replicate (desiredLength - length text) paddingChar ++ text
-
-removeLeadingZeroes :: String -> String
-removeLeadingZeroes text =
-    case dropWhile (== '0') text of
-        "" -> "0"
-        result -> result
 
 polynomialToNumberHelper :: [NumberType] -> NumberType -> NumberType -> NumberType -> String
 polynomialToNumberHelper [] _ _ 0 = ""
@@ -54,10 +50,22 @@ polynomialToNumber polynomial blockSize =
 
 unsignedIntegerMultiplication :: String -> String -> String
 unsignedIntegerMultiplication number1 number2
-    | fromIntegral (length number1 + length number2) > multiplicationMaximumNumberOfDigits =
-        error "Number of digits exceeded!"
+    | fromIntegral (length number1 + length number2) > multiplicationMaximumNumberOfDigits = error "Number of digits exceeded!"
     | otherwise = result
     where polynomial1 = splitNumberToBlocks number1 multiplicationBlockSize
           polynomial2 = splitNumberToBlocks number2 multiplicationBlockSize
-          productPolynomial = multiply polynomial1 polynomial2
+          productPolynomial = PM.multiply polynomial1 polynomial2
           result = polynomialToNumber productPolynomial multiplicationBlockSize
+
+multiplyBigNumbers :: BigNumber -> BigNumber -> BigNumber
+multiplyBigNumbers (BigNumber sign1 exponent1 coefficient1) (BigNumber sign2 exponent2 coefficient2) = normalizeBigNumber $ BigNumber resultSign resultExponent resultCoefficient
+    where resultSign = sign1 * sign2
+          resultExponent = exponent1 + exponent2
+          resultCoefficient = unsignedIntegerMultiplication coefficient1 coefficient2
+
+multiply :: String -> String -> Either String String
+multiply number1 number2 = do
+    parsedNumber1 <- parseBigNumber number1
+    parsedNumber2 <- parseBigNumber number2
+    let resultNumber = multiplyBigNumbers parsedNumber1 parsedNumber2
+    Right (bigNumberToString resultNumber)

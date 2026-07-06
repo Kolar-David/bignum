@@ -7,9 +7,7 @@ module BigNum.Constants
     , multiplicationMaximumNumberOfDigits
     ) where
 
--- Types
-
-type NumberType = Integer
+import BigNum.Types (NumberType)
 
 -- Constants
 
@@ -22,12 +20,8 @@ maximumNumberOfCoefficients = 2^32
 usedPrime :: NumberType
 usedPrime = 18446744069414584321
 
--- Preliminary values! -------------------------
-
 multiplicationBlockSize :: NumberType
 multiplicationBlockSize = 6
 
 multiplicationMaximumNumberOfDigits :: NumberType
 multiplicationMaximumNumberOfDigits = 2^23
-
-------------------------------------------------

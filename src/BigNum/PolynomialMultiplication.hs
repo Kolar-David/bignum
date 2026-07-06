@@ -1,6 +1,5 @@
 module BigNum.PolynomialMultiplication
-    ( NumberType
-    , moduloPower
+    ( moduloPower
     , nextPowerOfTwo
     , extendWithZeroes
     , splitEvenOdd
@@ -9,9 +8,10 @@ module BigNum.PolynomialMultiplication
     , multiply
     ) where
 
+import BigNum.Types (NumberType)
+
 import BigNum.Constants
-    ( NumberType
-    , primitiveRootW
+    ( primitiveRootW
     , maximumNumberOfCoefficients
     , usedPrime
     )
