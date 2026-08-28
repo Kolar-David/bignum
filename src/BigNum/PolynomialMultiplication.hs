@@ -1,20 +1,11 @@
 module BigNum.PolynomialMultiplication
-    ( moduloPower
-    , nextPowerOfTwo
-    , extendWithZeroes
-    , splitEvenOdd
-    , getCorrectW
-    , fft
-    , multiply
+    (moduloPower, nextPowerOfTwo, extendWithZeroes, splitEvenOdd,
+      getCorrectW, fft, multiply
     ) where
 
 import BigNum.Types (NumberType)
 
-import BigNum.Constants
-    ( primitiveRootW
-    , maximumNumberOfCoefficients
-    , usedPrime
-    )
+import BigNum.Constants (primitiveRootW, maximumNumberOfCoefficients, usedPrime)
 
 -- Constants
 

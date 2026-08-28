@@ -1,9 +1,4 @@
-module BigNum.Parser
-    ( parseBigNumber
-    , removeLeadingZeroes
-    , bigNumberToString
-    , normalizeBigNumber
-    ) where
+module BigNum.Parser (parseBigNumber, removeLeadingZeroes, bigNumberToString, normalizeBigNumber) where
 
 import Data.Char (isDigit)
 

@@ -1,10 +1,6 @@
 module BigNum.Constants
-    ( NumberType
-    , primitiveRootW
-    , maximumNumberOfCoefficients
-    , usedPrime
-    , multiplicationBlockSize
-    , multiplicationMaximumNumberOfDigits
+    (NumberType, primitiveRootW, maximumNumberOfCoefficients, usedPrime,
+      multiplicationBlockSize, multiplicationMaximumNumberOfDigits
     ) where
 
 import BigNum.Types (NumberType)
@@ -24,4 +20,4 @@ multiplicationBlockSize :: NumberType
 multiplicationBlockSize = 6
 
 multiplicationMaximumNumberOfDigits :: NumberType
-multiplicationMaximumNumberOfDigits = 2^23
+multiplicationMaximumNumberOfDigits = 2^26

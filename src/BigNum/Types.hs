@@ -1,12 +1,6 @@
-module BigNum.Types
-    ( NumberType
-    , BigNumber(..)
-    ) where
+module BigNum.Types (NumberType, BigNumber(..)) where
 
 type NumberType = Integer
 
 data BigNumber = BigNumber
-    { sign :: Int
-    , exponent :: Int
-    , coefficient :: String
-    } deriving (Eq, Show)
+    { sign :: Int, exponent :: Int, coefficient :: String} deriving (Eq, Show)
