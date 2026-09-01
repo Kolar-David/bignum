@@ -1,4 +1,4 @@
-module BigNum.Addition (add) where
+module BigNum.Addition (add, integerAddition, negateBigNumber, subtractBigNumbers, absoluteBigNumber) where
 
 import Data.Char (digitToInt, intToDigit)
 
@@ -6,13 +6,9 @@ import BigNum.Parser (removeLeadingZeroes, parseBigNumber, bigNumberToString, no
 
 import BigNum.Types (BigNumber(..))
 
--- Auxillary functions
+import BigNum.Comparison (compareUnsignedIntegers)
 
-compareUnsignedIntegers :: String -> String -> Ordering
-compareUnsignedIntegers number1 number2
-    | length number1 < length number2 = LT
-    | length number1 > length number2 = GT
-    | otherwise = compare number1 number2
+-- Auxillary functions
 
 integerAddition :: String -> String -> String
 integerAddition number1 number2 = reverse $ integerAdditionHelper (reverse number1) (reverse number2) 0
@@ -47,7 +43,17 @@ integerSubtraction number1 number2 = removeLeadingZeroes $ reverse $ integerSubt
          integerSubtractionHelper [] _ _ = error "number2 > number1!"
 
 
--- Addition functions
+-- Main functions
+
+absoluteBigNumber :: BigNumber -> BigNumber
+absoluteBigNumber number = case normalizeBigNumber number of
+                               BigNumber _ numberExponent numberCoefficient -> BigNumber 1 numberExponent numberCoefficient
+
+
+negateBigNumber :: BigNumber -> BigNumber
+negateBigNumber number = case normalizeBigNumber number of
+                             BigNumber _ _ "0" -> BigNumber 1 0 "0"
+                             BigNumber numberSign numberExponent numberCoefficient -> BigNumber (-numberSign) numberExponent numberCoefficient
 
 addBigNumbers :: BigNumber -> BigNumber -> BigNumber
 addBigNumbers (BigNumber sign1 exponent1 coefficient1) (BigNumber sign2 exponent2 coefficient2) = normalizeBigNumber $ BigNumber resultSign commonExponent resultCoefficient
@@ -62,6 +68,9 @@ addBigNumbers (BigNumber sign1 exponent1 coefficient1) (BigNumber sign2 exponent
                     GT -> (sign1, integerSubtraction alignedCoefficient1 alignedCoefficient2)
                     LT -> (sign2, integerSubtraction alignedCoefficient2 alignedCoefficient1)
                     EQ -> (1, "0")
+
+subtractBigNumbers :: BigNumber -> BigNumber -> BigNumber
+subtractBigNumbers number1 number2 = addBigNumbers number1 (negateBigNumber number2)
 
 add :: String -> String -> Either String String
 add number1 number2 = do

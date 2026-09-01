@@ -1,6 +1,6 @@
 module BigNum.Constants
     (NumberType, primitiveRootW, maximumNumberOfCoefficients, usedPrime,
-      multiplicationBlockSize, multiplicationMaximumNumberOfDigits
+      multiplicationBlockSize, multiplicationMaximumNumberOfDigits, initialReciprocalPrecision
     ) where
 
 import BigNum.Types (NumberType)
@@ -21,3 +21,7 @@ multiplicationBlockSize = 6
 
 multiplicationMaximumNumberOfDigits :: NumberType
 multiplicationMaximumNumberOfDigits = 2^26
+
+
+initialReciprocalPrecision :: Int
+initialReciprocalPrecision = 16

@@ -1,4 +1,4 @@
-module BigNum.NumberMultiplication (unsignedIntegerMultiplication, multiply) where
+module BigNum.NumberMultiplication (unsignedIntegerMultiplication, multiply, multiplyBigNumbers) where
 
 import BigNum.Constants (multiplicationBlockSize, multiplicationMaximumNumberOfDigits)
 
