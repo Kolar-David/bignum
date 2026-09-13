@@ -336,7 +336,7 @@ Porovná dvě nezáporná celá čísla uložená jako řetězce. Nejprve podle 
 
 ## `Rounding.hs`
 
-Tento modul slouží k ořezávání a zaokrouhlování čísel. Je používán v modulu dělení, kde ořezávání slouží k postupnému zpřesňování čísel a zaokrouhlování k finální úpravě výsledku.
+Tento modul slouží k ořezávání a zaokrouhlování čísel. Je používán modulem `Division.hs`, kde ořezávání slouží k postupnému zpřesňování čísel a zaokrouhlování k finální úpravě výsledku.
 
 ### `roundToDecimalPlaces :: Int -> BigNumber -> Either String BigNumber`
 
@@ -355,11 +355,11 @@ Určí podle první odstraněné cifry, zda se má číslo zaokrouhlit nahoru. K
 
 ## `Division.hs`
 
-Tento modul pomocí Newtonovy metody provádí dělení.
+Tento modul pomocí algoritmu založeného na Newtonově metodě provádí dělení dvou čísel.
 
 ### `divide :: Int -> String -> String -> Either String String`
 
-Veřejná funkce pro dělení dvou desetinných čísel.
+Veřejná funkce pro dělení dvou racionálních čísel.
 
 ### `divideWithAbsoluteTolerance :: BigNumber -> BigNumber -> BigNumber -> Either String BigNumber`
 
@@ -378,6 +378,68 @@ Převede požadovaný počet desetinných míst výstupu na dostatečně malé $
 Veřejné varianty `divide` s pevně nastaveným počtem desetinných míst 0, 10, 30 a 100.
 
 
-# Jedotkové testy
+# Jednotkové testy
 
-Součástí programu jsou také jednotkové testy.
+Součástí tohoto repozitáře jsou jednoduché testy ověřující funkčnost kódu.
+Ty testují správnost veřejných numerických operací. Implementace testů se nachází v souboru `src/Tests.hs`.
+
+Program je kvůli rychlosti nutné zkompilovat, což lze například provést spuštěním skriptu `compile_tests.sh`.
+
+## Seed
+
+Seed lze zadat jako argument programu. Pokud zadán není, použije se výchozí hodnota `314159265`.
+
+## Test sčítání
+
+Vygenerují se dvě náhodná krátká racionální čísla se znaménkem. Výsledek funkce `add` se převede na typ `Rational` a porovná se se součtem obou vstupů spočítaným přímo pomocí operace `(+)` nad `Rational`.
+
+## Test krátkého násobení
+
+Vygenerují se dvě náhodná racionální čísla se znaménkem. Výsledek funkce `multiply` se převede na `Rational` a porovná se s přesným součinem vstupních hodnot vypočteným pomocí `(*)` nad `Rational`.
+
+## Test dlouhého celočíselného násobení
+
+Vygenerují se dvě dlouhá nezáporná celá čísla se zadaným počtem cifer. Výsledek `multiply` se převede na vestavěný typ `Integer` a porovná se s přesným součinem stejných vstupů vypočteným pomocí násobení `Integer`.
+
+Test je spouštěn jak pro čísla s tisíci ciframi, tak pro výrazně větší vstupy, aby se otestovala část implementace využívající NTT.
+
+## Test dělení
+
+Vygenerují se dvě náhodná racionální čísla `a` a `b`. Nejprve se pomocí knihovny spočítá jejich součin (tady již předpokládáme, že operace násobení prošla předchozími testy)
+
+$s = a \cdot b$.
+
+Poté se provede
+
+$s / b$
+
+s dostatečným počtem desetinných míst. Výsledek musí být přesně roven původnímu číslu $a$.
+
+## Test dělení se zadanou přesností
+
+Opět se nejprve vytvoří pomocí knihovny součin dvou náhodných čísel
+
+$s = a \cdot b$.
+
+Následně se počítá
+
+$s / b$,
+
+takže matematickým výsledkem je $b$. Tentokrát však může být požadovaný počet desetinných míst menší než počet desetinných míst čísla $b$.
+
+Referenční výsledek se proto získá přesným zaokrouhlením $b$ pomocí typu `Rational`. Výsledek funkce `divide` se následně porovná s touto referenční zaokrouhlenou hodnotou.
+
+## Spuštění všech testů
+
+Program postupně spustí:
+
+- 1000 testů sčítání krátkých racionálních čísel,
+- 500 testů násobení krátkých racionálních čísel,
+- 100 násobení dvojic 1000ciferných celých čísel,
+- 10 násobení dvojic 100000ciferných celých čísel,
+- 20 testů dělení větších racionálních čísel,
+- 100 testů dělení s přesností 5 desetinných míst,
+- 10 rozsáhlých testů dělení s přesností 4000 desetinných míst.
+
+Pokud všechny testy proběhnou bez chyby, program vypíše `All tests passed!`.
+
