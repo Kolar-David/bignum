@@ -72,11 +72,11 @@ Tyto mnohočleny se vynásobí pomocí FFT. Výsledný mnohočlen se následně 
 
 Z povahy zafixování konečného tělesa během FFT je omezený maximální počet cifer výsledku. Zároveň nesmí v žádném koeficientu dojít k přetečení, tedy žádný koeficient nesmí mít výsledek větší než $p$.
 
-Toto splňuje například počet cifer $2^26 = 67 108 864$. Zřejmě splňuje, že je menší, než celkový počet koeficientů v FFT.
+Toto splňuje například počet cifer $2^{26} = 67 108 864$. Zřejmě splňuje, že je menší, než celkový počet koeficientů v FFT.
 
 Též nedojde k přetečení, maximální hodnotu koeficientu lze odhadnout zhora jako:
 
-$(10^6 - 1)^2 \cdot 2^26 / 6 < 18446744069414584321$
+$(10^6 - 1)^2 \cdot 2^{26} / 6 < 18446744069414584321$
 
 ### Dělení čísel
 

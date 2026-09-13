@@ -6,7 +6,7 @@ Knihovna podporuje základní aritmetické operace:
 
 - sčítání
 - násobení
-- dělení se zadaným počtem desetinných míst
+- dělení se zadaným počtem desetinných míst výsledku
 
 ## Přehled funkcí knihovny
 
@@ -73,9 +73,9 @@ Vstup může obsahovat počáteční nebo koncové nuly:
 0.000
 ```
 
-Tyto nuly jsou při zpracování automaticky odstraněny tam, kde nemají vliv na hodnotu čísla.
+Tyto nuly jsou v případě přebytečnosti při zpracování automaticky odstraněny.
 
-Vstup nesmí obsahovat mezery ani jiné znaky. Neplatné jsou například:
+Vstup nesmí obsahovat mezery ani jiné znaky. Neplatné jsou tak například:
 
 ```
  123
@@ -134,7 +134,7 @@ Prvních $n$ cifer se ponechá a podle následující cifry se rozhodne o zaokro
 
 Stačí vzít v `/src` složku `/BigNum` a soubor `BigNum.hs` a vložit je svém projektu do stejného adresáře.
 
-Následně lze do svého programu knihovnu importovat tímto způsobem:
+Následně lze do svého programu knihovnu importovat pomocí:
 
 
 ```
