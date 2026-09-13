@@ -161,7 +161,7 @@ $$2^{26}$$
 
 Dělení interně opakovaně používá operaci násobení uvedenou výše, a proto je omezeno velikostí největšího součinu, který během výpočtu vznikne.
 
-Jako bezpečnou praktickou hranici lze použít $2^{24}$ cifer. Součet
+Jako bezpečnou praktickou hranici lze použít $2^{22}$ cifer. Součet
 
 - počtu relevantních cifer čitatele,
 - počtu relevantních cifer jmenovatele,
@@ -170,7 +170,7 @@ Jako bezpečnou praktickou hranici lze použít $2^{24}$ cifer. Součet
 
 by tedy neměl překročit
 
-$$2^{24}$$
+$$2^{22}$$
 
 Tuto hranici lze nicméně teoreticky i překročit, nicméně nelze garantovat, že výpočet proběhne. Pevnou hranicí je limit jako u násobení, tedy $2^{26}$.
 

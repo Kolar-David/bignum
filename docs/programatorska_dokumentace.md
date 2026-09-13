@@ -441,7 +441,7 @@ $s / b$,
 
 takže výsledkem je $a$. Tentokrát však může být požadovaný počet desetinných míst menší než počet desetinných míst čísla $a$.
 
-Referenční výsledek se proto získá přesným zaokrouhlením $b$ pomocí typu `Rational`. Výsledek funkce `divide` se následně porovná s touto referenční zaokrouhlenou hodnotou.
+Referenční výsledek se proto získá přesným zaokrouhlením $a$ pomocí typu `Rational`. Výsledek funkce `divide` se následně porovná s touto referenční zaokrouhlenou hodnotou.
 
 ## Spuštění všech testů
 
