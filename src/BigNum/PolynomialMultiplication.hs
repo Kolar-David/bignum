@@ -9,11 +9,13 @@ import BigNum.Constants (primitiveRootW, maximumNumberOfCoefficients, usedPrime)
 
 -- Constants
 
+-- | Multiplicative inverse of the primitive root of unity W modulo the used prime
 primitiveRootWInverse :: NumberType
 primitiveRootWInverse = moduloPower primitiveRootW (maximumNumberOfCoefficients - 1) usedPrime
 
 -- Auxillary functions
 
+-- | Computes modular exponentiation using exponentiation by squaring
 moduloPower :: NumberType -> NumberType -> NumberType -> NumberType
 moduloPower _ 0 _ = 1
 moduloPower base exponent modulo
@@ -21,22 +23,27 @@ moduloPower base exponent modulo
     | otherwise = (val * val) `mod` modulo
     where val = moduloPower base (exponent `div` 2) modulo
 
+-- | Returns the smallest power of 2 that is greater than or equal to the given number
 nextPowerOfTwo :: NumberType -> NumberType
 nextPowerOfTwo n = nextPowerHelper 1 n
+    -- | Helper function for finding the next power of two by repeatedly multiplying the current value by 2
     where nextPowerHelper x n
               | x >= n = x
               | otherwise = nextPowerHelper (2*x) n
 
-
+-- | Extends a list with zeroes to the specified length
 extendWithZeroes :: [NumberType] -> NumberType -> [NumberType]
 extendWithZeroes list n = list ++ replicate (fromIntegral n - length list) 0
 
+-- | Splits a list into two lists with elements at even and odd positions
 splitEvenOdd :: [NumberType] -> ([NumberType], [NumberType])
 splitEvenOdd [] = ([], [])
 splitEvenOdd [x] = ([x], [])
 splitEvenOdd (x:y:xs) = ((x:evenXs), (y:oddXs))
     where (evenXs, oddXs) = splitEvenOdd xs
 
+-- | Derives a primitive root of unity for the desired transform length from a root for a larger length
+-- The desired length must not be greater than the current length
 getCorrectW :: NumberType -> NumberType -> NumberType -> NumberType
 getCorrectW currentN desiredN currentW
     | currentN == desiredN = currentW
@@ -45,8 +52,8 @@ getCorrectW currentN desiredN currentW
 
 -- FFT
 
+-- | Computes FFT
 -- The length of the list must be a power of 2 and w must correspond to it!
-
 fft :: [NumberType] -> NumberType -> NumberType -> [NumberType]
 fft [x] _ p = [x `mod` p]
 fft list w p = firstHalfOfFinalResult ++ secondHalfOfFinalResult
@@ -54,7 +61,7 @@ fft list w p = firstHalfOfFinalResult ++ secondHalfOfFinalResult
           newW = (w * w) `mod` p
           evenResult = fft evenList newW p
           oddResult = fft oddList newW p
-
+          -- | Combines the transforms of the even and odd coefficients into the final transform
           combineResults :: [NumberType] -> [NumberType] -> NumberType -> NumberType -> NumberType -> ([NumberType], [NumberType])
           combineResults [] [] _ _ _ = ([], [])
           combineResults (x:xs) (y:ys) p w powerOfW = (((x + t) `mod` p) : resultXs, ((x - t) `mod` p) : resultYs)
@@ -66,6 +73,7 @@ fft list w p = firstHalfOfFinalResult ++ secondHalfOfFinalResult
 
 -- Polynomial multiplication
 
+-- | Multiplies two polynomials using FFT
 multiply :: [NumberType] -> [NumberType] -> [NumberType]
 multiply polynomialA polynomialB = scaledProduct
     where resultLength = length polynomialA + length polynomialB - 1

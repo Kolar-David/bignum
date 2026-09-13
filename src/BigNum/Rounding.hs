@@ -6,6 +6,9 @@ import BigNum.Types (NumberType, BigNumber(..))
 import BigNum.Parser (normalizeBigNumber)
 import BigNum.Addition (integerAddition)
 
+
+-- | Truncates a BigNumber to the given number of significant digits
+-- The removal of the digits is compensated by increasing the exponent
 truncateToSignificantDigits :: Int -> BigNumber -> BigNumber
 truncateToSignificantDigits precision inputNumber
     | precision <= 0 = error "Precision must be positive!"
@@ -16,12 +19,13 @@ truncateToSignificantDigits precision inputNumber
         removedDigitCount = length numberCoefficient - precision
         truncatedCoefficient = take precision numberCoefficient
 
-
+-- | Determines whether rounding up is required from the first removed digit
 shouldRoundUp :: String -> Bool
 shouldRoundUp [] = False
 shouldRoundUp (digit:_) = digit >= '5'
 
 
+-- | Rounds a BigNumber to the given number of decimal places
 roundToDecimalPlaces :: Int -> BigNumber -> Either String BigNumber
 roundToDecimalPlaces decimalPlaces inputNumber
     | decimalPlaces < 0 = Left "Number of decimal places must be non-negative"

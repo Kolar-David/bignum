@@ -6,12 +6,15 @@ import BigNum.Types (BigNumber(..))
 
 -- Auxiliary functions
 
+-- | Removes leading zeroes from a decimal string.
+-- Returns 0 if the input represents zero
 removeLeadingZeroes :: String -> String
 removeLeadingZeroes text =
     case dropWhile (== '0') text of
         "" -> "0"
         result -> result
 
+-- | Removes trailing zeroes from a decimal string and returns their count
 removeTrailingZeroes :: String -> (String, Int)
 removeTrailingZeroes text = (reverse reversedWithoutZeroes, removedZeroCount)
     where
@@ -21,6 +24,8 @@ removeTrailingZeroes text = (reverse reversedWithoutZeroes, removedZeroCount)
 
 -- Parser
 
+-- | Parses a decimal string into the internal BigNumber representation
+-- Returns an error if the input format is invalid
 parseBigNumber :: String -> Either String BigNumber
 parseBigNumber input =
     case input of
@@ -28,6 +33,7 @@ parseBigNumber input =
         '-' : rest -> parseWithoutSign (-1) rest
         rest -> parseWithoutSign 1 rest
 
+-- | Parses the unsigned part of a decimal number using the given sign
 parseWithoutSign :: Int -> String -> Either String BigNumber
 parseWithoutSign numberSign text =
     case break (== '.') text of
@@ -51,15 +57,19 @@ parseWithoutSign numberSign text =
         _ ->
             Left "Invalid input."
 
+-- | Converts BigNumber into its canonical internal representation
+-- Leading and trailing zeroes are removed and zero is normalized to a unique form
 normalizeBigNumber :: BigNumber -> BigNumber
 normalizeBigNumber (BigNumber numberSign numberExponent numberCoefficient) =
     case removeLeadingZeroes numberCoefficient of
+        -- the unique form of zero
         "0" -> BigNumber 1 0 "0"
         coefficientWithoutLeadingZeroes ->
             let (coefficientWithoutTrailingZeroes, removedTrailingZeroCount) = 
                     removeTrailingZeroes coefficientWithoutLeadingZeroes
             in BigNumber numberSign (numberExponent + removedTrailingZeroCount) coefficientWithoutTrailingZeroes
 
+-- | Converts a normalized BigNumber into a decimal string
 normalizedBigNumberToString :: BigNumber -> String
 normalizedBigNumberToString (BigNumber numberSign numberExponent numberCoefficient)
     | numberCoefficient == "0" = "0"
@@ -74,6 +84,6 @@ normalizedBigNumberToString (BigNumber numberSign numberExponent numberCoefficie
           (integerPart, fractionalPart) = splitAt splitPosition numberCoefficient
           missingZeroes = fractionalDigits - length numberCoefficient
 
-
+-- | Converts a BigNumber into its normalized decimal string representation
 bigNumberToString :: BigNumber -> String
 bigNumberToString number = normalizedBigNumberToString (normalizeBigNumber number)

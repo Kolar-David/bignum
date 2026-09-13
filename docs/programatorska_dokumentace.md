@@ -193,11 +193,11 @@ Spočítá mocninu modulo pomocí rychlého binárního umocňování.
 
 ### `nextPowerOfTwo :: NumberType -> NumberType`
 
-Vrátí nejmenší mocninu dvojky větší nebo rovnou zadanému číslu.
+Vrátí nejmenší mocninu dvojky větší nebo rovnou zadanému číslu. Hledáme s tím vhodnou délku polynomu, který se předá FFT.
 
 ### `extendWithZeroes :: [NumberType] -> NumberType -> [NumberType]`
 
-Doplní seznam nulami na požadovanou délku.
+Doplní seznam nulami na požadovanou délku. Hodí se v FFT, kde chceme pracovat s polynomy o délce odpovídající mocnině dvojky.
 
 ### `splitEvenOdd :: [NumberType] -> ([NumberType], [NumberType])`
 

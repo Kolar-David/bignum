@@ -41,7 +41,7 @@ Provede dělení s výsledkem zaokrouhleným na 100 desetinných míst.
 
 ## Formát vstupních čísel
 
-Vstupní čísla se zadávají jako `String`. Podporována jsou celá i racionální čísla, kladná i záporná.
+Vstupní čísla se zadávají jako `String` v desítkové soustavě. Podporována jsou celá i racionální čísla, kladná i záporná.
 
 Platný vstup má jeden z následujících tvarů:
 

@@ -10,9 +10,11 @@ import BigNum.Comparison (compareUnsignedIntegers)
 
 -- Auxillary functions
 
+-- | Adds two non-negative integers represented as decimal strings
 integerAddition :: String -> String -> String
 integerAddition number1 number2 = reverse $ integerAdditionHelper (reverse number1) (reverse number2) 0
      where
+          -- | Performs integer addition digit by digit while propagating the carry
           integerAdditionHelper :: String -> String -> Int -> String
           integerAdditionHelper [] y 0 = y
           integerAdditionHelper x [] 0 = x
@@ -25,10 +27,12 @@ integerAddition number1 number2 = reverse $ integerAdditionHelper (reverse numbe
                     newCarry = currentSum `div` 10
 
 
--- number1 needs to be larger or equal to number2!
+-- | Subtracts the second non-negative integer from the first
+-- Number1 needs to be larger or equal to number2!
 integerSubtraction :: String -> String -> String
 integerSubtraction number1 number2 = removeLeadingZeroes $ reverse $ integerSubtractionHelper (reverse number1) (reverse number2) 0
      where
+         -- | Performs integer subtraction digit by digit while propagating the borrow
          integerSubtractionHelper :: String -> String -> Int -> String
          integerSubtractionHelper [] [] 0 = []
          integerSubtractionHelper xs [] 0 = xs
@@ -45,16 +49,22 @@ integerSubtraction number1 number2 = removeLeadingZeroes $ reverse $ integerSubt
 
 -- Main functions
 
+
+-- | Returns the absolute value of a BigNumber
 absoluteBigNumber :: BigNumber -> BigNumber
 absoluteBigNumber number = case normalizeBigNumber number of
                                BigNumber _ numberExponent numberCoefficient -> BigNumber 1 numberExponent numberCoefficient
 
-
+-- | Negates a BigNumber
+-- Zero remains in its canonical representation
 negateBigNumber :: BigNumber -> BigNumber
 negateBigNumber number = case normalizeBigNumber number of
                              BigNumber _ _ "0" -> BigNumber 1 0 "0"
                              BigNumber numberSign numberExponent numberCoefficient -> BigNumber (-numberSign) numberExponent numberCoefficient
 
+
+-- | Adds two BigNumber values
+-- Their exponents are aligned first and the coefficients are then added or subtracted according to their signs
 addBigNumbers :: BigNumber -> BigNumber -> BigNumber
 addBigNumbers (BigNumber sign1 exponent1 coefficient1) (BigNumber sign2 exponent2 coefficient2) = normalizeBigNumber $ BigNumber resultSign commonExponent resultCoefficient
     where
@@ -69,9 +79,13 @@ addBigNumbers (BigNumber sign1 exponent1 coefficient1) (BigNumber sign2 exponent
                     LT -> (sign2, integerSubtraction alignedCoefficient2 alignedCoefficient1)
                     EQ -> (1, "0")
 
+-- | Subtracts the second BigNumber from the first by negating it first and then performing addition
 subtractBigNumbers :: BigNumber -> BigNumber -> BigNumber
 subtractBigNumbers number1 number2 = addBigNumbers number1 (negateBigNumber number2)
 
+
+-- | Adds two decimal numbers represented as strings
+-- Returns an error if either input has an invalid format
 add :: String -> String -> Either String String
 add number1 number2 = do
     parsedNumber1 <- parseBigNumber number1
