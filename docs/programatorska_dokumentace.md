@@ -61,7 +61,7 @@ Použil jsem  lepší parametry, než jsou uvedeny v kapitole, na níž se odkaz
 
 Násobení racionálních čísel se převede na násobení celých nezáporných čísel.
 
-Nejprve dojde k převodu násobených čísel do dříve uvedeného normalizovaného formátu $znamenko \cdot koeficient \cdot 10^exponent$.
+Nejprve dojde k převodu násobených čísel do dříve uvedeného normalizovaného formátu $znamenko \cdot koeficient \cdot 10^{exponent}$.
 Následně se vynásobí koeficienty a z tohoto součinu, plus součtu exponentů a součinu znamének lze sestavit výsledek.
 
 ### Násobení celých nezáporných čísel
@@ -415,7 +415,7 @@ Vygenerují se dvě náhodná racionální čísla se znaménkem. Výsledek funk
 
 Vygenerují se dvě dlouhá nezáporná celá čísla se zadaným počtem cifer. Výsledek `multiply` se převede na vestavěný typ `Integer` a porovná se s přesným součinem stejných vstupů vypočteným pomocí násobení `Integer`.
 
-Test je spouštěn jak pro čísla s tisíci ciframi, tak pro výrazně větší vstupy, aby se otestovala část implementace využívající NTT.
+Test je spouštěn jak pro čísla s tisíci ciframi, tak pro výrazně větší vstupy, aby se otestovala část implementace využívající FFT nad konečným tělesem.
 
 ## Test dělení
 
