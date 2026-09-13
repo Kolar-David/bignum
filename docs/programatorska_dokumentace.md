@@ -1,9 +1,10 @@
 # Úvodní informace
 
-Tato knihovna implemetuje asymptoticky rychlé násobení, dělení, sčítání a odčítání dlouhých racionálních čísel v Haskellu. Tato čísla jsou zadána jako `String` reprezentující jejich desetinný rozvoj
+Tato knihovna implemetuje asymptoticky rychlé násobení, dělení a sčítání dlouhých racionálních čísel v Haskellu. Tato čísla jsou zadána jako `String` reprezentující jejich desetinný rozvoj
 a knihovna jako výsledek vrací `Either String String`.
 
 Během vývoje jsem knihovnu pojal spíš jako vyzkoušení jednotlivých algoritmických technik, které se typicky používají, než jako knihovnu k použití v praxi.
+To dokládá i rychlost, která není tak vysoká, jak jsem si od toho původně sliboval.
 
 Základním pilířem je rychlé násobení mnohočlenů s celočíselnými koeficienty založené na FFT nad konečným tělesem. To je následně použito k násobení dlouhých čísel.
 
@@ -92,6 +93,8 @@ $x_{k+1} = x_k \cdot (2 - bx_k)$
 
 Po spočtení výsledku se výsledek zaokrouhlí podle požadované přesnosti.
 
+Kvůli použitému násobení je i u dělení omezena délka čísel. Konkrétně nesmí žádný interní součin překročit limit násobení.
+
 #### Kontrola chyby
 
 Program má kontrolovat, zda je rozdíl mezi $a/b$ a aktuální aproximací menší než daná přenost $\varepsilon$.
@@ -129,6 +132,17 @@ Kód obsahuje částečnou optimalizaci - využívá toho, že se přesnost po k
 Omezuje proto na začátku délku koeficientu v normalizovaném tvaru na 12 cifer a po každé iteraci tuto délku zdvojnásobí.
 Je nicméně nutné zmínit, že pracovní přesnost $a$ a $b$ zůstává v průběhu celého algoritmu stejná,
 takže je optimalizace jen částečná a hodí se především v momentu, kdy je celkový počet požadovaných cifer výsledku výrazně větší, než součty délek koeficientů těchto čísel. 
+
+### Časové složitosti jednotlivých algoritmů
+
+Předpokládejme, že během násobení čísel dělíme čísla na bloky délky $O(\log n)$ a ne 6.
+Potom mají použité algoritmy vůči délce vstupu a výstupu $n$ následující časové složitosti:
+
+| Operace | Časová složitost |
+|---|---|
+| Sčítání | $O(n)$ |
+| Násobení | $O(n)$ |
+| Dělení | $O(n \log n)$ |
 
 # Struktura kódu
 
