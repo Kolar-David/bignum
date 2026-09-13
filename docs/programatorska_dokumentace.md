@@ -16,7 +16,7 @@ zaokrouhlení čísla na danou přenost a porovnávání čísel.
 
 Vstupní a výstupní čísla jsou reprezentována pomocí `String`. To ovšem není během práce s čísly uvnitř knihovny příliš praktické. Proto interně k jednotlivým operacím používá knihovna typ `BigNumber`.
 
-V něm jsou čísla uložena ve tvaru $znamenko \cdot koeficient \cdot 10^exponent$.
+V něm jsou čísla uložena ve tvaru $znamenko \cdot koeficient \cdot 10^{exponent}$.
 
 Koeficient je uložený jako `String`, znaménko a exponent jako `Int`.
 
@@ -53,7 +53,7 @@ K násobení mnohočlenů je použito FFT nad konečným tělesem, jak je popsá
 Použil jsem  lepší parametry, než jsou uvedeny v kapitole, na níž se odkazuji:
 
 - Prvočíslo určující konečné těleso $p = 18446744069414584321$
-- Maximální délka mnohočlenu k vyhodnocení $n = 2^32$
+- Maximální délka mnohočlenu k vyhodnocení $n = 2^{32}$
 - Primitivní $n$-tá odmocnina z jedničky $\omega = 1753635133440165772$
 
 ### Násobení čísel
@@ -275,7 +275,7 @@ Odstraní koncové nuly a vrátí také jejich počet.
 
 ## `Addition.hs`
 
-Tento modul implentuje veřejnou metodu add složící k součtu racionálních čísel.
+Tento modul implentuje veřejnou metodu `add` sloužící k součtu racionálních čísel.
 Využívá toho, že lze každý součet racionálních čísel převést na součet dvou nezáporných čísel, nebo na rozdíl dvou nezáporných čísel, z nichž menšenec je větší.
 Tento součet a rozdíl je realizován pomocí běžných školních algoritmů na sčítání a odčítání pod sebou.
 
