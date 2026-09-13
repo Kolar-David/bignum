@@ -136,7 +136,7 @@ takže je optimalizace jen částečná a hodí se především v momentu, kdy j
 ### Časové složitosti jednotlivých algoritmů
 
 Předpokládejme, že během násobení čísel dělíme čísla na bloky délky $O(\log n)$ a ne 6.
-Potom mají použité algoritmy vůči délce vstupu a výstupu $n$ následující časové složitosti:
+Potom mají použité algoritmy vůči součtu délek vstupu a výstupu $n$ následující časové složitosti:
 
 | Operace | Časová složitost |
 |---|---|
