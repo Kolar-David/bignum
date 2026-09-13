@@ -425,7 +425,7 @@ Následně se počítá
 
 $s / b$,
 
-takže matematickým výsledkem je $b$. Tentokrát však může být požadovaný počet desetinných míst menší než počet desetinných míst čísla $b$.
+takže výsledkem je $a$. Tentokrát však může být požadovaný počet desetinných míst menší než počet desetinných míst čísla $a$.
 
 Referenční výsledek se proto získá přesným zaokrouhlením $b$ pomocí typu `Rational`. Výsledek funkce `divide` se následně porovná s touto referenční zaokrouhlenou hodnotou.
 
