@@ -44,7 +44,7 @@ initialReciprocalApproximation number = normalizeBigNumber $ BigNumber 1 approxi
 
 
 decimalPlacesToTolerance :: Int -> BigNumber
-decimalPlacesToTolerance decimalPlaces = BigNumber 1 (-(decimalPlaces + 1)) "1"
+decimalPlacesToTolerance decimalPlaces = BigNumber 1 (-(decimalPlaces + 5)) "1"
 
 -- a / b
 divideWithAbsoluteTolerance :: BigNumber -> BigNumber -> BigNumber -> Either String BigNumber
