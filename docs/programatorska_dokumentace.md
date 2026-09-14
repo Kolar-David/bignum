@@ -122,7 +122,7 @@ tak lze dosazením Newtonova vzorce pro $x_{k+1}$ do $e_{k+1}$ s vhodnými úpra
 
 $e_{k+1} =  e_{k}^2$
 
-Pokud se tedy $x_1$ zvolí tak, že je chyba na začátku menší než 1, výsledek konverguje ke správné hodnotě a správný počet cifer se přibližně po každé iteraci zdvojnásobí.
+Pokud se tedy $x_1$ zvolí tak, že je chyba na začátku ostře mezi -1 a 1, výsledek konverguje ke správné hodnotě a správný počet cifer se přibližně po každé iteraci zdvojnásobí.
 
 Algoritmus toto dělá tak, že vezme několik prvních cifer koeficientu čísla v normalizované reprezentaci, a získá pomocí běžného dělení malých čísel první odhad.
 
