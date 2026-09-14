@@ -126,6 +126,22 @@ Pokud se tedy $x_1$ zvolí tak, že je chyba na začátku ostře mezi -1 a 1, v�
 
 Algoritmus toto dělá tak, že vezme několik prvních cifer koeficientu čísla v normalizované reprezentaci, a získá pomocí běžného dělení malých čísel první odhad.
 
+Číslo $b$ se dá zapsat jako $b = (p10^{L-t} + r) \cdot 10^e$, kde $e$ je exponent po normalizaci,
+$L$ délka koeficientu po normalizaci a $t$ počet cifer z koeficientu, co si vezmeme pro počáteční odhad.
+
+Na základě toho s pomocí $p$ lze vytvořit následující počáteční aproximaci.
+
+Nejprve se zavede $s = t + konstantaZvetsujiciPresnost$
+
+V modulu je jako $konstantaZvetsujiciPresnost použitá hodnota `initialReciprocalPrecision`,
+ale není to provázané se zbylým použitím této konstanty a šlo by tady použít i jinou hodnotu.
+
+Výsledný odhad je 
+
+$$\lfloor 10^s / p \rloor 10^{-(e + L - t + s)}$$.
+
+Pro tento odhad platí, že leží nezávisle na volbě $b$ chyba v prvním kroku mezi $-c$ a $c$, kde $c$ je kladná konstanta menší než 1, což jsme potřebovali.
+
 #### Postupné zpřesňování
 
 Kód obsahuje částečnou optimalizaci - využívá toho, že se přesnost po každém kroku zdvojnásobí, takže některé cifry aproximace nejsou potřeba.
