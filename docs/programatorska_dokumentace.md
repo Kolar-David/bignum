@@ -133,12 +133,12 @@ Na základě toho s pomocí $p$ lze vytvořit následující počáteční aprox
 
 Nejprve se zavede $s = t + konstantaZvetsujiciPresnost$
 
-V modulu je jako $konstantaZvetsujiciPresnost použitá hodnota `initialReciprocalPrecision`,
+V modulu je jako $konstantaZvetsujiciPresnost$ použitá hodnota `initialReciprocalPrecision`,
 ale není to provázané se zbylým použitím této konstanty a šlo by tady použít i jinou hodnotu.
 
 Výsledný odhad je 
 
-$$\lfloor 10^s / p \rloor 10^{-(e + L - t + s)}$$.
+$$\lfloor 10^s / p \rfloor 10^{-(e + L - t + s)}$$.
 
 Pro tento odhad platí, že leží nezávisle na volbě $b$ chyba v prvním kroku mezi $-c$ a $c$, kde $c$ je kladná konstanta menší než 1, což jsme potřebovali.
 
